@@ -11,13 +11,14 @@ $miracl = new MiraclClient(
 $data = array();
 
 if (isset($_REQUEST['logout'])) {
-    flashMessage("info", "User logged out.");
+    flashMessage("info", "User logged out!");
     $miracl->logout();
     header("Location: .");
     die();
 } else {
     if ($miracl->validateAuthorization()) {
         //Redirect if authorization happened just now
+        flashMessage("success", "Successfully logged in!");
         header("Location: .");
         die();
     }
