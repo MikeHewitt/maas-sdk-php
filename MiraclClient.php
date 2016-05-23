@@ -77,8 +77,15 @@ class MiraclClient
             $token = $this->oidc->getAccessToken();
             if ($token != null) {
                 $_SESSION['miracl_access_token'] = $token;
-                $_SESSION['miracl_email'] = $this->oidc->requestUserInfo("sub");
-                $_SESSION['miracl_user'] = $this->oidc->requestUserInfo("user_id");
+                $_SESSION['miracl_email'] = $this->oidc->requestUserInfo("email");
+                $_SESSION['miracl_sub'] = $this->oidc->requestUserInfo("sub");
+                if ($_SESSION["miracl_email"] == null) {
+                    $_SESSION["miracl_email"] = "";
+                }
+                if ($_SESSION["miracl_sub"] == null) {
+                    $_SESSION["miracl_sub"] = "";
+                }
+
                 return true;
             }
         }
@@ -138,6 +145,14 @@ class MiraclClient
         unset($_SESSION['miracl_email']);
         unset($_SESSION['openid_connect_nonce']);
         unset($_SESSION['openid_connect_state']);
+    }
+
+    /**
+     * @return string User id
+     */
+    public function getUserID()
+    {
+        return $_SESSION['miracl_sub'];
     }
 
     /**
