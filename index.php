@@ -15,6 +15,10 @@ if (isset($_REQUEST['logout'])) {
     $miracl->logout();
     header("Location: .");
     die();
+} else if (isset($_REQUEST['refresh'])) {
+    $miracl->refreshUserData();
+    header("Location: .");
+    die();
 } else {
     if ($miracl->validateAuthorization()) {
         //Redirect if authorization happened just now
@@ -26,7 +30,7 @@ if (isset($_REQUEST['logout'])) {
     if ($miracl->isLoggedIn()) {
         $data['isAuthorized'] = true;
         $data['email'] = $miracl->getEmail();
-        $data['userID'] = $miracl->getEmail();
+        $data['userID'] = $miracl->getUserID();
     } else {
         $data["authURL"] = $miracl->getAuthURL();
     }

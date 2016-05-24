@@ -77,15 +77,7 @@ class MiraclClient
             $token = $this->oidc->getAccessToken();
             if ($token != null) {
                 $_SESSION['miracl_access_token'] = $token;
-                $_SESSION['miracl_email'] = $this->oidc->requestUserInfo("email");
-                $_SESSION['miracl_sub'] = $this->oidc->requestUserInfo("sub");
-                if ($_SESSION["miracl_email"] == null) {
-                    $_SESSION["miracl_email"] = "";
-                }
-                if ($_SESSION["miracl_sub"] == null) {
-                    $_SESSION["miracl_sub"] = "";
-                }
-
+                $this->refreshUserData($token);
                 return true;
             }
         }
@@ -136,12 +128,34 @@ class MiraclClient
         return $auth_endpoint;
     }
 
+    public function refreshUserData()
+    {
+        unset($_SESSION['miracl_sub']);
+        unset($_SESSION['miracl_email']);
+        $data = $this->requestUserInfo($_SESSION["miracl_access_token"]);
+
+        if (array_key_exists('sub', $data)) {
+            $_SESSION['miracl_sub'] = $data->sub;
+        } else {
+            $this->logout();
+            return;
+        }
+
+        if (array_key_exists('email', $data)) {
+            $_SESSION['miracl_email'] = $data->email;
+        } else {
+            $_SESSION['miracl_email'] = "";
+        }
+    }
+
+
     /**
      * Clears user data from session.
      */
     public function logout()
     {
         unset($_SESSION['miracl_access_token']);
+        unset($_SESSION['miracl_sub']);
         unset($_SESSION['miracl_email']);
         unset($_SESSION['openid_connect_nonce']);
         unset($_SESSION['openid_connect_state']);
@@ -152,7 +166,9 @@ class MiraclClient
      */
     public function getUserID()
     {
-        return $_SESSION['miracl_sub'];
+        if (isset($_SESSION['miracl_sub'])) {
+            return $_SESSION['miracl_sub'];
+        }
     }
 
     /**
@@ -160,7 +176,11 @@ class MiraclClient
      */
     public function getEmail()
     {
-        return $_SESSION['miracl_email'];
+        if (isset($_SESSION['miracl_email'])) {
+            return $_SESSION['miracl_email'];
+        } else {
+            return "";
+        }
     }
 
     /**
@@ -179,4 +199,91 @@ class MiraclClient
     {
         return $this->config[$key];
     }
+
+    private function requestUserInfo($accessToken)
+    {
+        $user_info_endpoint = $this->getProviderConfigValue("userinfo_endpoint");
+        $schema = 'openid';
+
+        $user_info_endpoint .= "?schema=" . $schema;
+
+        //The accessToken has to be send in the Authorization header, so we create a new array with only this header.
+        $headers = array("Authorization: Bearer {$accessToken}");
+
+        $user_json = json_decode($this->fetchURL($user_info_endpoint, null, $headers));
+
+        return $user_json;
+
+    }
+
+    private function fetchURL($url, $post_body = null, $headers = array())
+    {
+        // OK cool - then let's create a new cURL resource handle
+        $ch = curl_init();
+
+        // Determine whether this is a GET or POST
+        if ($post_body != null) {
+            curl_setopt($ch, CURLOPT_POST, 1);
+            curl_setopt($ch, CURLOPT_POSTFIELDS, $post_body);
+
+            // Default content type is form encoded
+            $content_type = 'application/x-www-form-urlencoded';
+
+            // Determine if this is a JSON payload and add the appropriate content type
+            if (is_object(json_decode($post_body))) {
+                $content_type = 'application/json';
+            }
+
+            // Add POST-specific headers
+            $headers[] = "Content-Type: {$content_type}";
+            $headers[] = 'Content-Length: ' . strlen($post_body);
+
+        }
+
+        // If we set some heaers include them
+        if (count($headers) > 0) {
+            curl_setopt($ch, CURLOPT_HTTPHEADER, $headers);
+        }
+
+        // Set URL to download
+        curl_setopt($ch, CURLOPT_URL, $url);
+
+        if (isset($this->httpProxy)) {
+            curl_setopt($ch, CURLOPT_PROXY, $this->httpProxy);
+        }
+
+        // Include header in result? (0 = yes, 1 = no)
+        curl_setopt($ch, CURLOPT_HEADER, 0);
+
+        /**
+         * Set cert
+         * Otherwise ignore SSL peer verification
+         */
+        if (isset($this->certPath)) {
+            curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, true);
+            curl_setopt($ch, CURLOPT_SSL_VERIFYHOST, 2);
+            curl_setopt($ch, CURLOPT_CAINFO, $this->certPath);
+        } else {
+            curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, FALSE);
+        }
+
+        // Should cURL return or print out the data? (true = return, false = print)
+        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+
+        // Timeout in seconds
+        curl_setopt($ch, CURLOPT_TIMEOUT, 60);
+
+        // Download the given URL, and return output
+        $output = curl_exec($ch);
+
+        if ($output === false) {
+            throw new OpenIDConnectClientException('Curl error: ' . curl_error($ch));
+        }
+
+        // Close the cURL resource, and free system resources
+        curl_close($ch);
+
+        return $output;
+    }
+
 }

@@ -65,6 +65,7 @@
                 </div>
                 <div class="col-md-4"></div>
                 <div class="col-md-4">
+                    <a href="?refresh" class="btn btn-primary action">Refresh</a>
                     <a href="?logout" class="btn btn-primary action">Log out</a>
                 </div>
             <?php } else if (isset($authURL)) { ?>
