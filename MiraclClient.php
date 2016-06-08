@@ -17,7 +17,7 @@ class MiraclClient
     /**
      * @var string base url for OIDC
      */
-    private $baseURL = "http://mpinaas-demo.miracl.net:8001";
+    private $baseURL = "https://api.dev.miracl.net";
     /**
      * @var array OIDC configuration
      */

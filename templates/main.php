@@ -52,9 +52,10 @@
         </div>
     </div>
 
-    <?php if (isset($retry) && isset($authURL)) { ?>
+    <?php if (isset($retry)) { ?>
         <div class="col-md-12">
-            <a href="#" class="btn btn-primary" onClick="mpin.login({authURL: '<?= $authURL ?>'})">Retry?</a>
+            <div id="btmpin"></div>
+            
         </div>
     <?php } else { ?>
         <div class="row">
@@ -68,13 +69,16 @@
                     <a href="?refresh" class="btn btn-primary action">Refresh</a>
                     <a href="?logout" class="btn btn-primary action">Log out</a>
                 </div>
-            <?php } else if (isset($authURL)) { ?>
+            <?php } else { ?>
                 <div class="col-md-12">
-                    <a href="#" class="btn btn-primary" onClick="mpin.login({authURL: '<?= $authURL ?>'})">Login</a>
+                    <div id="btmpin"></div>
                 </div>
             <?php } ?>
         </div>
     <?php } ?>
 </div>
+<?php if (isset($authURL)) { ?>
+    <script src="https://demo.dev.miracl.net/mpin/mpad.js" x-authurl="<?= $authURL ?>" x-element="btmpin"></script>
+<?php } ?>
 </body>
 </html>
