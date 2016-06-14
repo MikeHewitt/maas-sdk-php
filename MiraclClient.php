@@ -77,7 +77,7 @@ class MiraclClient
             $token = $this->oidc->getAccessToken();
             if ($token != null) {
                 $_SESSION['miracl_access_token'] = $token;
-                $this->refreshUserData($token);
+                $this->refreshUserData();
                 return true;
             }
         }
