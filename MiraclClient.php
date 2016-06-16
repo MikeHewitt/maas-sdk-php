@@ -9,6 +9,8 @@
 
 require __DIR__ . '/vendor/autoload.php';
 
+define("MIRACL_BASE_URL", "https://api.dev.miracl.net");
+
 /**
  * Class MiraclClient
  */
@@ -17,7 +19,7 @@ class MiraclClient
     /**
      * @var string base url for OIDC
      */
-    private $baseURL = "https://api.dev.miracl.net";
+    private $baseURL;
     /**
      * @var array OIDC configuration
      */
@@ -45,10 +47,11 @@ class MiraclClient
      * @param $clientID string
      * @param $clientSecret string
      * @param $redirectURL string
+     * @param $baseURL string Optional base URL to override default one
      */
-    function __construct($clientID, $clientSecret, $redirectURL)
+    function __construct($clientID, $clientSecret, $redirectURL, $baseURL = MIRACL_BASE_URL)
     {
-        $baseURL = $this->baseURL;
+        $this->baseURL = $baseURL;
 
         $this->config = array(
             'authorization_endpoint' => "$baseURL/authorize",
