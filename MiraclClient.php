@@ -57,13 +57,25 @@ class MiraclClient
             'jwks_uri' => "$baseURL/oidc/certs"
         );
 
-        $this->oidc = new OpenIDConnectClient($baseURL, $clientID, $clientSecret);
+        $this->oidc = $this->createOpenIDConnectClient($baseURL, $clientID, $clientSecret);
         $this->oidc->providerConfigParam($this->config);
         /** @noinspection PhpParamsInspection */
         $this->oidc->setRedirectURL($redirectURL);
         $this->redirectURL = $redirectURL;
         $this->clientID = $clientID;
         $this->clientSecret = $clientSecret;
+    }
+
+    /**
+     * Method returns default implementation of OpenIDConnectClient. Override for client customization
+     * @param $baseURL string
+     * @param $clientID string
+     * @param $clientSecret string
+     * @return OpenIDConnectClient OpenIDConnectClient
+     */
+    public function createOpenIDConnectClient($baseURL, $clientID, $clientSecret)
+    {
+        return new OpenIDConnectClient($baseURL, $clientID, $clientSecret);
     }
 
     /**
@@ -216,7 +228,7 @@ class MiraclClient
 
     }
 
-    private function fetchURL($url, $post_body = null, $headers = array())
+    protected function fetchURL($url, $post_body = null, $headers = array())
     {
         // OK cool - then let's create a new cURL resource handle
         $ch = curl_init();
