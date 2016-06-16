@@ -69,10 +69,16 @@ Authorization flow depends on `mpad.js` browser library. To show login button:
 # Sample
 
 See `index.php` for sample and `templates/main.php` for used template.
-Replace `CLIENT_ID`, `CLIENT_SECRET` and `REDIRECT_URL` with valid values.
-To start using Miracl API, `MiraclClient` should be initialized. `CLIENT_ID` and `CLIENT_SECRET` can be obtained from
+
+Configuration is located in `miracl.json`.
+
+Replace `CLIENT_ID`, `SECRET` and `REDIRECT_URL` with valid values.
+
+To start using Miracl API, `MiraclClient` should be initialized. `CLIENT_ID` and `SECRET` can be obtained from
 Miracl(unique per application). `REDIRECT_URL` is URI of your application end-point that will be responsible obtaining
 token. It should be the same as registered in Miracl system for this client ID.
+
+Redirect URI for this sample is `http://127.0.0.1` if it is accessed on local web server root.
 
 # Tests
 

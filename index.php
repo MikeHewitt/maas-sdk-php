@@ -2,10 +2,12 @@
 
 require "./vendor/autoload.php";
 
+$config = json_decode(file_get_contents("miracl.json"),true);
+
 $miracl = new MiraclClient(
-    'CLIENT_ID',
-    'CLIENT_SECRET',
-    'REDIRECT_URL');
+    $config['client_id'],
+    $config['secret'],
+    $config['redirect_uri']);
 
 //Display data for tempalte
 $data = array();
