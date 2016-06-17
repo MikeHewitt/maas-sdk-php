@@ -8,8 +8,7 @@
  */
 
 require __DIR__ . '/vendor/autoload.php';
-
-define("MIRACL_BASE_URL", "https://api.dev.miracl.net");
+require 'MiraclConfig.php';
 
 /**
  * Class MiraclClient
