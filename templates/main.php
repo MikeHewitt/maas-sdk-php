@@ -78,7 +78,7 @@
     <?php } ?>
 </div>
 <?php if (isset($authURL)) { ?>
-    <script src="http://demo.stg.miracl.net/mpin/mpad.js" data-authurl="<?= $authURL ?>" data-element="btmpin"></script>
+    <script src="https://demo.stg.miracl.net/mpin/mpad.js" data-authurl="<?= $authURL ?>" data-element="btmpin"></script>
 <?php } ?>
 </body>
 </html>

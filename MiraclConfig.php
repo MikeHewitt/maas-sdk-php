@@ -1,2 +1,2 @@
 <?php
-define("MIRACL_BASE_URL", "http://api.stg.miracl.net");
+define("MIRACL_BASE_URL", "https://api.stg.miracl.net");
