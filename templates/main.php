@@ -29,8 +29,6 @@
             margin-bottom: 15px;
         }
     </style>
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.2/jquery.min.js"></script>
-    <script src="http://mpinaas-demo.miracl.net:8002/mpin/mpin.js"></script>
 </head>
 <body>
 <div class="container">
