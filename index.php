@@ -29,10 +29,19 @@ if (isset($_REQUEST['logout'])) {
     // End output here
     die();
 } else {
+
     // Reload page if authorization happened just now
-    if ($miracl->validateAuthorization()) {
-        // Save message in session
-        flashMessage("success", "Successfully logged in!");
+    if (isset($_REQUEST['code'])) {
+        // Validate authorization
+        if ($miracl->validateAuthorization()) {
+            // Save success message in session
+            flashMessage("success", "Successfully logged in!");
+        }
+        else {
+            // Save fail message in session
+            flashMessage("danger", "Login failed!");
+        }
+
         // Send redirect to client page reload
         header("Location: .");
         // End output here

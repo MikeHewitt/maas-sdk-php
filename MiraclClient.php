@@ -86,14 +86,18 @@ class MiraclClient
      */
     public function validateAuthorization()
     {
-        if (isset($_REQUEST["code"])) {
-            $this->oidc->authenticate();
-            $token = $this->oidc->getAccessToken();
-            if ($token != null) {
-                $_SESSION['miracl_access_token'] = $token;
-                $this->refreshUserData();
-                return true;
+        try {
+            if (isset($_REQUEST["code"])) {
+                $this->oidc->authenticate();
+                $token = $this->oidc->getAccessToken();
+                if ($token != null) {
+                    $_SESSION['miracl_access_token'] = $token;
+                    $this->refreshUserData();
+                    return true;
+                }
             }
+        } catch (OpenIDConnectClientException $e) {
+            error_log("OpenIDConnect Client Exception: " . $e->getMessage());
         }
         return false;
     }
