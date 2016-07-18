@@ -1,0 +1,21 @@
+{
+  "name": "miracl/maas_sdk",
+  "description": "Miracl auth SDK",
+  "minimum-stability": "alpha",
+  "license": "proprietary",
+  "authors": [
+    {
+      "name": "Elviss Kuštans",
+      "email": "n3o59hf@gmail.com"
+    }
+  ],
+  "require": {
+    "jumbojett/openid-connect-php": "0.1.*"
+  },
+  "autoload": {
+    "classmap": [
+      "MiraclClient.php",
+      "MiraclConfig.php"
+    ]
+  }
+}
