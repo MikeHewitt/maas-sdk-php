@@ -9,6 +9,7 @@
 
 require __DIR__ . '/vendor/autoload.php';
 require 'MiraclConfig.php';
+require 'MiraclMessages.php';
 
 /**
  * Class MiraclClient
@@ -97,7 +98,7 @@ class MiraclClient
                 }
             }
         } catch (OpenIDConnectClientException $e) {
-            error_log("OpenIDConnect Client Exception: " . $e->getMessage());
+            error_log(sprintf(MIRACL_MSG_OPENID_EXCEPTION, $e->getMessage()));
         }
         return false;
     }
@@ -295,7 +296,7 @@ class MiraclClient
         $output = curl_exec($ch);
 
         if ($output === false) {
-            throw new OpenIDConnectClientException('Curl error: ' . curl_error($ch));
+            throw new OpenIDConnectClientException(sprintf(MIRACL_MSG_CURL_ERROR, curl_error($ch)));
         }
 
         // Close the cURL resource, and free system resources
