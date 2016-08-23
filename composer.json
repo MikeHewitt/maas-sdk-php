@@ -15,7 +15,7 @@
         }
     ],
     "require": {
-        "php": ">=5.3",
+        "php": ">=5.4",
         "jumbojett/openid-connect-php": "0.2.*"
     },
     "require-dev": {

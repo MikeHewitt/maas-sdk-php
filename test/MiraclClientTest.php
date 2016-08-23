@@ -17,7 +17,7 @@ class MiraclClientTest extends \PHPUnit_Framework_TestCase
      */
     protected function createMock($type)
     {
-        if (method_exists($this, 'createMock')) {
+        if (version_compare(\PHPUnit_Runner_Version::id(), '5.0.0', '>=')) {
             return parent::createMock($type);
         }
         return $this->getMock($type);
