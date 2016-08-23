@@ -29,7 +29,7 @@ class MiraclClientTest extends \PHPUnit_Framework_TestCase
         $_SESSION['miracl_email'] = 'X';
         $_SESSION['miracl_sub'] = 'X';
 
-        $mockClient = $this->createMock(\OpenIDConnectClient::class);
+        $mockClient = $this->createMock('\OpenIDConnectClient');
         $mockClient->method('providerConfigParam')->willReturn('');
         $client = new TestableMiraclClient($mockClient);
         $client->logout();
@@ -41,7 +41,7 @@ class MiraclClientTest extends \PHPUnit_Framework_TestCase
 
     public function testAuthRequestURL()
     {
-        $mockClient = $this->createMock(\OpenIDConnectClient::class);
+        $mockClient = $this->createMock('\OpenIDConnectClient');
         $mockClient->method('providerConfigParam')->willReturn('');
         $client = new TestableMiraclClient($mockClient);
         $url = $client->getAuthURL();
@@ -55,7 +55,7 @@ class MiraclClientTest extends \PHPUnit_Framework_TestCase
 
     public function testGoodToken()
     {
-        $mockClient = $this->createMock(\OpenIDConnectClient::class);
+        $mockClient = $this->createMock('\OpenIDConnectClient');
         $mockClient->method('providerConfigParam')->willReturn('');
         $mockClient->method('authenticate')->willReturn(true);
         $mockClient->method('getAccessToken')->willReturn('TOKEN');
@@ -80,8 +80,8 @@ class MiraclClientTest extends \PHPUnit_Framework_TestCase
 
     public function testEmptyAuthorization()
     {
-        $mockClient = $this->createMock(\OpenIDConnectClient::class);
-        $mockClient->method('providerConfigParam')->willReturn("");
+        $mockClient = $this->createMock('\OpenIDConnectClient');
+        $mockClient->method('providerConfigParam')->willReturn('');
 
         $client = new TestableMiraclClient($mockClient);
 
