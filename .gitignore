@@ -1,7 +1,4 @@
 composer.phar
 composer.lock
-/vendor/
-
+vendor
 target
-.coverage
-htmlcov

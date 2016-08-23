@@ -1,21 +1,41 @@
 {
-  "name": "miracl/maas_sdk",
-  "description": "Miracl auth SDK",
-  "minimum-stability": "alpha",
-  "license": "proprietary",
-  "authors": [
-    {
-      "name": "Elviss Kuštans",
-      "email": "n3o59hf@gmail.com"
+    "name": "miracl/maas-sdk-php",
+    "description": "Miracl auth SDK PHP",
+    "minimum-stability": "alpha",
+    "license": "Apache 2.0",
+    "keywords": ["MAAS", "SDK", "PHP", "MIRACL"],
+    "authors": [
+        {
+            "name": "Elviss Kuštans",
+            "email": "n3o59hf@gmail.com"
+        },
+        {
+            "name": "Nicola Asuni",
+            "email": "nicola.asuni@miracl.com"
+        }
+    ],
+    "require": {
+        "php": ">=5.3",
+        "jumbojett/openid-connect-php": "0.1.*"
+    },
+    "require-dev": {
+        "apigen/apigen" : "^4.1.2",
+        "bartlett/php-compatinfo" : "^5.0.0",
+        "pdepend/pdepend" : "^2.2.2",
+        "phploc/phploc" : "^2.1.5|^3.0.0",
+        "phpmd/phpmd" : "^2.3.2",
+        "phpunit/phpunit": "4.8.19|^5.0.0",
+        "sebastian/phpcpd" : "^2.0.2",
+        "squizlabs/php_codesniffer": "^2.5.0|^3.0.0"
+    },
+    "autoload": {
+        "psr-4":{
+            "Com\\Miracl\\MaasSdk\\": "src"
+        }
+    },
+    "autoload-dev": {
+        "classmap": [
+            "test/TestableMiraclClient.php"
+        ]
     }
-  ],
-  "require": {
-    "jumbojett/openid-connect-php": "0.1.*"
-  },
-  "autoload": {
-    "classmap": [
-      "MiraclClient.php",
-      "MiraclConfig.php"
-    ]
-  }
 }
