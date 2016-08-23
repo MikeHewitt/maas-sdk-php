@@ -1,3 +1,18 @@
+# maas-sdk-php
+
+[![Master Build Status](https://secure.travis-ci.org/miracl/maas-sdk-php.png?branch=master)](https://travis-ci.org/miracl/maas-sdk-php?branch=master)
+[![Master Coverage Status](https://coveralls.io/repos/miracl/maas-sdk-php/badge.svg?branch=master&service=github)](https://coveralls.io/github/miracl/maas-sdk-php?branch=master)
+
+* **category**:    SDK
+* **copyright**:   2016 MIRACL UK LTD
+* **license**:     ASL 2.0 - http://www.apache.org/licenses/LICENSE-2.0
+* **link**:        https://github.com/miracl/maas-sdk-php
+
+## Description
+
+PHP version of the Software Development Kit (SDK) for MPin-As-A-Service (MAAS).
+
+
 # Setup
 
 ## Development
