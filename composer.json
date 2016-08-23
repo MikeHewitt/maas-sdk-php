@@ -16,7 +16,7 @@
     ],
     "require": {
         "php": ">=5.3",
-        "jumbojett/openid-connect-php": "0.1.*"
+        "jumbojett/openid-connect-php": "0.2.*"
     },
     "require-dev": {
         "apigen/apigen" : "^4.1.2",

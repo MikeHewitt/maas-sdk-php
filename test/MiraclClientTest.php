@@ -12,6 +12,17 @@ class MiraclClientTest extends \PHPUnit_Framework_TestCase
         $_REQUEST = array();
     }
 
+    /**
+     * createMock is not defined in PHPUnit < 5.0.0
+     */
+    protected function createMock($type)
+    {
+        if (method_exists($this, 'createMock')) {
+            return parent::createMock($type);
+        }
+        return $this->getMock($type);
+    }
+
     public function testLogout()
     {
         $_SESSION['miracl_access_token'] = 'X';
@@ -19,7 +30,7 @@ class MiraclClientTest extends \PHPUnit_Framework_TestCase
         $_SESSION['miracl_sub'] = 'X';
 
         $mockClient = $this->createMock(\OpenIDConnectClient::class);
-        $mockClient->method('providerConfigParam')->willReturn("");
+        $mockClient->method('providerConfigParam')->willReturn('');
         $client = new TestableMiraclClient($mockClient);
         $client->logout();
         $this->assertFalse(isset($_SESSION['miracl_access_token']));
