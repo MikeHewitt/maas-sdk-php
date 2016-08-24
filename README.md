@@ -1,11 +1,65 @@
+# maas-sdk-php
+
+[![Master Build Status](https://secure.travis-ci.org/miracl/maas-sdk-php.png?branch=master)](https://travis-ci.org/miracl/maas-sdk-php?branch=master)
+[![Master Coverage Status](https://coveralls.io/repos/miracl/maas-sdk-php/badge.svg?branch=master&service=github)](https://coveralls.io/github/miracl/maas-sdk-php?branch=master)
+
+* **category**:    SDK
+* **copyright**:   2016 MIRACL UK LTD
+* **license**:     ASL 2.0 - http://www.apache.org/licenses/LICENSE-2.0
+* **link**:        https://github.com/miracl/maas-sdk-php
+
+## Description
+
+PHP version of the Software Development Kit (SDK) for MPin-As-A-Service (MAAS).
+
+
 # Setup
 
 ## Development
 
-This project uses [Composer](http://getcomposer.org) for management of dependencies. You will need `composer.phar` for
-installation of dependencies.
+First, you need to install all development dependencies using [Composer](https://getcomposer.org/):
 
-Use `php composer.phar install` in the root project directory to download all necessary dependencies into the `./vendor` directory.
+```bash
+$ curl -sS https://getcomposer.org/installer | php
+$ mv composer.phar /usr/local/bin/composer
+```
+
+This project include a Makefile that allows you to test and build the project with simple commands.
+To see all available options:
+
+```bash
+make help
+```
+
+To install all the development dependencies:
+
+```bash
+make build_dev
+```
+
+## Running all tests
+
+Before committing the code, please check if it passes all tests using
+
+```bash
+make qa_all
+```
+this generates the phpunit coverage report in target/coverage.
+
+Generate the documentation:
+
+```bash
+make docs
+```
+
+Generate static analysis reports in target/report:
+
+```bash
+make reports
+```
+
+Please check all the available options using `make help`.
+
 
 # Structure
 
@@ -33,7 +87,7 @@ Checks if authentification information is in the session and returns true if the
 
 #### getAuthURL
 
-Generates the URL for use in the `mpad.js` script (see [Frontend](#markdown-header-frontend)) and saves verification data in the session.
+Generates the URL for use in the `mpad.js` script (see [Frontend](#markdown-header-frontend)) and saves the verification data in the session.
 
 #### refreshUserData
 
@@ -62,7 +116,7 @@ The authorization flow depends on the `mpad.js` browser library. To show the log
 
 # Sample app
 
-See `index.php` for sample script and `templates/main.php` for the webpage template.
+See `src/index.php` for sample script and `templates/main.php` for the webpage template.
 
 Credentials-based configuration is found in `miracl.json`.
 
@@ -72,11 +126,3 @@ To enable use of Miracl APIs, a `MiraclClient` should be initialized. `CLIENT_ID
 Miracl (they are unique per application). `REDIRECT_URL` is URI of your application end-point that will be responsible for obtaining an access token. It should match what is registered in the Miracl system for the corresponding client ID.
 
 The Redirect URI for this sample is `http://127.0.0.1` if it is accessed on the local web server root.
-
-# Tests
-
-Tests use PHPUnit. To run tests, use:
-```
-wget https://phar.phpunit.de/phpunit.phar
-php phpunit.phar --bootstrap vendor/autoload.php tests/MiraclClientTest
-```

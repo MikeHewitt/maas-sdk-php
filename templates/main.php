@@ -34,19 +34,22 @@
 <div class="container">
     <div class="row">
         <div class="col-md-12">
-            <h1>PHP SDK example</h1>
+            <h1>PHP MAAS SDK example</h1>
         </div>
     </div>
 
     <div class="row">
         <div class="col-md-12">
-            <?php if (isset($messages)) {
+            <?php
+            if (isset($messages)) {
                 foreach ($messages as $m) { ?>
                     <div class="alert alert-<?= $m['category'] ?>">
                         <?= $m['text'] ?>
                     </div>
-                <?php }
-            } ?>
+                <?php
+                }
+            }
+            ?>
         </div>
     </div>
 

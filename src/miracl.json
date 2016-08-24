@@ -1,0 +1,6 @@
+{
+	"client_id": "CLIENT_ID",
+	"secret": "SECRET",
+	"redirect_uri": "REDIRECT_URI",
+	"miracl_base_url": "https://api.mpin.io"
+}
