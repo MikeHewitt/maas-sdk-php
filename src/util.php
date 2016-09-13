@@ -30,6 +30,6 @@ function renderTemplate($name, $vars)
 {
     ob_start();
     extract($vars);
-    include 'templates/'.$name.'.php';
+    include '../templates/'.$name.'.php';
     return ob_get_clean();
 }
