@@ -4,7 +4,7 @@
  */
 
 // Autoload for MiraclClient and dependencies
-require './vendor/autoload.php';
+require '../vendor/autoload.php';
 require 'util.php';
 
 // Read config for Miracl client
