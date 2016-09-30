@@ -78,8 +78,9 @@
         </div>
     <?php } ?>
 </div>
+<!--Please refer to your distributor-specific documentation to find the correct url for the mpad.js script src-->
 <?php if (isset($authURL)) { ?>
-    <script src="https://dd.cdn.mpin.io/mpad/mpad.js" data-authurl="<?= $authURL ?>" data-element="btmpin"></script>
+    <script src="<<Insert correct mpad url here>>" data-authurl="<?= $authURL ?>" data-element="btmpin"></script>
 <?php } ?>
 </body>
 </html>
